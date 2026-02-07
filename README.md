@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# 🌬️ Project Air Conditioning - Front-end (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositório contém a interface do sistema de agendamento de manutenção de ar-condicionado. O projeto foi focado em uma experiência de usuário (UX) fluida e moderna.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tecnologias e Ferramentas
 
-## React Compiler
+* **React 18**: Biblioteca principal para construção da interface.
+* **Vite**: Build tool ultra-rápida para o desenvolvimento.
+* **TypeScript**: Garantia de tipagem e menos erros em tempo de execução.
+* **Axios**: Cliente HTTP para consumo da API hospedada no Render.
+* **Lucide React**: Biblioteca de ícones modernos e leves.
+* **Tailwind CSS**: Framework para estilização rápida e responsiva.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🔌 Extensões Recomendadas (VS Code)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Para manter a produtividade e o padrão de código deste projeto:
+1.  **ESLint**: Padronização de código.
+2.  **Prettier**: Formatação automática ao salvar.
+3.  **Tailwind CSS IntelliSense**: Autocompletar das classes CSS.
+4.  **ES7+ React/Redux/React-Native snippets**: Atalhos para criação de componentes.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ⚙️ Configuração do Ambiente Local
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  **Instalação do Node.js**: Certifique-se de usar a versão LTS.
+2.  **Clone do Repositório**:
+    ```bash
+    git clone [https://github.com/LucasSalees/front-end-air.git](https://github.com/LucasSalees/front-end-air.git)
+    cd front-end-air
+    ```
+3.  **Instalação de Dependências**:
+    ```bash
+    npm install
+    ```
+4.  **Variáveis de Ambiente**:
+    Crie um arquivo `.env.local` na raiz e adicione:
+    ```env
+    VITE_API_URL=http://localhost:8081/api
+    ```
+5.  **Executar o Projeto**:
+    ```bash
+    npm run dev
+    ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Deploy (Netlify)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+O deploy automático está configurado via GitHub no Netlify.
+
+### Configurações de Build:
+* **Build Command**: `npm run build`
+* **Publish Directory**: `dist`
+
+### Variáveis de Ambiente no Netlify:
+É obrigatório configurar em *Site Settings > Environment Variables*:
+* `VITE_API_URL`: `https://project-air-conditioning.onrender.com/api`
+
+### Ajuste de Rotas (SPA):
+Para evitar erros 404 ao atualizar a página, o arquivo `public/_redirects` deve conter:
+`text`
+/* /index.html 200
+
+---
+
+### Desenvolvido por Lucas Sales 🚀
