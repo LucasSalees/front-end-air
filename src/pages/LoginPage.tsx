@@ -11,7 +11,7 @@ export default function LoginPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center font-sans antialiased text-slate-100">
+     <div className="card-tech-login rounded-3xl p-12 shadow-2xl">
         <div className="relative flex items-center justify-center">
           <Loader2 className="w-16 h-16 text-yellow-500 animate-spin" strokeWidth={1.5} />
           <Wind className="w-6 h-6 text-yellow-500/50 absolute" />
