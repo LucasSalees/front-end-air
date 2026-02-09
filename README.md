@@ -68,4 +68,7 @@ Para evitar erros 404 ao atualizar a página, o arquivo `public/_redirects` deve
 
 ---
 
-### Desenvolvido por Lucas Sales 🚀
+## 👨‍💻 Autor
+
+**Lucas Sales**  
+🔗 LinkedIn: https://www.linkedin.com/in/lucas-salees/
