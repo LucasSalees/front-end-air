@@ -34,52 +34,47 @@ export default function SystemLayout() {
 
     return (
         <div className="min-h-screen bg-[#0a0a0c] text-slate-300 flex font-sans overflow-hidden">
-            {/* OVERLAY MOBILE */}
+            
+            {/* OVERLAY (FUNDO ESCURO) - AGORA APARECE EM QUALQUER TELA */}
             {isSidebarOpen && (
-                <div className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
-                    onClick={() => setIsSidebarOpen(false)} />
+                <div 
+                    className="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm transition-opacity"
+                    onClick={() => setIsSidebarOpen(false)} 
+                />
             )}
 
-            {/* SIDEBAR */}
+            {/* SIDEBAR - AGORA É SEMPRE 'FIXED' E 'OFF-CANVAS' */}
             <aside className={`
                 fixed top-0 left-0 h-full w-72 bg-[#121214] border-r border-white/5 flex flex-col z-50 transition-transform duration-300 ease-in-out shadow-2xl
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
-                md:translate-x-0 md:static md:shadow-none
             `}>
                 
-                {/* 1. HEADER (Logo e Botão Fechar) - Fixo no topo */}
+                {/* 1. HEADER DA SIDEBAR */}
                 <div className="flex items-center justify-between p-6 mb-2 flex-shrink-0">
                     <div className="flex items-center gap-3">
                         <img 
-                        src="/img/class.jpeg" 
-                        alt="Logo Class Ar" 
-                        className="w-10 h-10 rounded-lg object-cover border border-white/10"
+                            src="/img/class.jpeg" 
+                            alt="Logo Class Ar" 
+                            className="w-10 h-10 rounded-lg object-cover border border-white/10"
                         />
                         <span className="text-xl font-bold text-white tracking-tighter">CLASS <span className="text-yellow-500">AR</span></span>
                     </div>
 
-                    <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-white">
+                    {/* BOTÃO FECHAR (X) - AGORA VISÍVEL SEMPRE */}
+                    <button onClick={() => setIsSidebarOpen(false)} className="text-slate-400 hover:text-white transition-colors">
                         <X size={24} />
                     </button>
                 </div>
 
-                {/* 2. MEIO (Navegação) - Ocupa o espaço e tem Scroll */}
-                {/* flex-1: empurra o footer pra baixo */}
-                {/* overflow-y-auto: cria scroll se os itens não couberem */}
+                {/* 2. MEIO (Navegação) - COM SCROLL */}
                 <nav className="flex-1 space-y-2 px-6 overflow-y-auto custom-scrollbar">
-                    <SidebarItem to="/dashboard" icon={<LayoutDashboard size={20} />} text="Dashboard" active={location.pathname === '/dashboard'} />
-                    <SidebarItem to="/agendamentos" icon={<Calendar size={20} />} text="Agendamentos" active={location.pathname === '/agendamentos'} />
-                    <SidebarItem to="/clientes" icon={<Users size={20} />} text="Clientes" active={location.pathname === '/clientes'} />
-                    <SidebarItem to="/configuracoes" icon={<Settings size={20} />} text="Configurações" active={location.pathname === '/configuracoes'} />
-                    
-                    {/* Exemplo: Se tiver muitos itens, o scroll aparece aqui */}
-                    {/* <SidebarItem to="/teste1" icon={<Settings size={20} />} text="Item Extra 1" />
-                    <SidebarItem to="/teste2" icon={<Settings size={20} />} text="Item Extra 2" />
-                    */}
+                    <SidebarItem to="/dashboard" icon={<LayoutDashboard size={20} />} text="Dashboard" active={location.pathname === '/dashboard'} onClick={() => setIsSidebarOpen(false)} />
+                    <SidebarItem to="/agendamentos" icon={<Calendar size={20} />} text="Agendamentos" active={location.pathname === '/agendamentos'} onClick={() => setIsSidebarOpen(false)} />
+                    <SidebarItem to="/clientes" icon={<Users size={20} />} text="Clientes" active={location.pathname === '/clientes'} onClick={() => setIsSidebarOpen(false)} />
+                    <SidebarItem to="/configuracoes" icon={<Settings size={20} />} text="Configurações" active={location.pathname === '/configuracoes'} onClick={() => setIsSidebarOpen(false)} />
                 </nav>
 
-                {/* 3. FOOTER (Usuário e Logout) - Fixo no fundo */}
-                {/* flex-shrink-0: garante que ele não seja esmagado */}
+                {/* 3. FOOTER (Usuário e Logout) - FIXO */}
                 <div className="p-6 border-t border-white/5 bg-[#121214] flex-shrink-0 z-10">
                     <div className="flex items-center gap-3 mb-4">
                         <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 border border-white/10">
@@ -99,11 +94,18 @@ export default function SystemLayout() {
 
             {/* CONTEÚDO PRINCIPAL */}
             <main className="flex-1 flex flex-col h-screen overflow-hidden relative w-full">
-                {/* HEADER GLOBAL */}
+                
+                {/* HEADER SUPERIOR */}
                 <header className="h-16 border-b border-white/5 bg-[#0a0a0c]/80 backdrop-blur-xl flex items-center justify-between px-6 sticky top-0 z-30 flex-shrink-0">
-                    <button onClick={() => setIsSidebarOpen(true)} className="p-2 -ml-2 text-slate-400 hover:text-white md:hidden">
+                    
+                    {/* BOTÃO MENU (HAMBÚRGUER) - VISÍVEL SEMPRE AGORA */}
+                    <button 
+                        onClick={() => setIsSidebarOpen(true)} 
+                        className="p-2 -ml-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                    >
                         <Menu size={24} />
                     </button>
+
                     <div className="ml-auto hidden sm:flex items-center gap-2 text-xs font-medium text-green-400 bg-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                         ONLINE
@@ -119,9 +121,13 @@ export default function SystemLayout() {
     );
 }
 
-function SidebarItem({ icon, text, to, active }: any) {
+// Pequena melhoria: Adicionei onClick para fechar o menu ao clicar em um item
+function SidebarItem({ icon, text, to, active, onClick }: any) {
     return (
-        <Link to={to} className={`
+        <Link 
+            to={to} 
+            onClick={onClick}
+            className={`
             flex items-center gap-3 w-full p-3 rounded-xl transition-all text-sm font-medium
             ${active 
                 ? 'bg-yellow-500 text-black font-bold shadow-lg shadow-yellow-500/20' 
