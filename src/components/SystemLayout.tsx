@@ -82,11 +82,10 @@ export default function SystemLayout() {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-sm font-bold text-white truncate max-w-[140px]">{userName}</span>
-                            <span className="text-xs text-slate-500">Administrador</span>
                         </div>
                     </div>
                     <button onClick={handleLogout} className="flex items-center gap-3 w-full p-3 text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-xl transition-all font-medium text-sm group">
-                        <LogOut size={18} className="group-hover:-translate-x-1 transition-transform" /> 
+                        <LogOut size={18} /> 
                         Sair do Sistema
                     </button>
                 </div>
