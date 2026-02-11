@@ -9,20 +9,27 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    // Essa chamada vai "segurar" o loading até o Render responder 200 OK
-    const wakeUpServer = async () => {
-      try {
-        await api.get('/login/health');
-      } catch (err) {
-        console.log("Aguardando o Render subir...");
-      } finally {
-        setLoading(false); // Só sai do loading quando o servidor responder
-      }
-    };
+useEffect(() => {
+  let mounted = true;
 
-    wakeUpServer();
-  }, []);
+  const wakeUpServer = async () => {
+    try {
+      // Tenta o ping
+      await api.get('/login/health');
+      if (mounted) setLoading(false);
+    } catch (err) {
+      console.log("Servidor ainda em boot... tentando novamente em 3s");
+      // Se falhar, aguarda 3 segundos e tenta de novo automaticamente
+      if (mounted) {
+        setTimeout(wakeUpServer, 3000);
+      }
+    }
+  };
+
+  wakeUpServer();
+
+  return () => { mounted = false; }; // Cleanup para evitar leak de memória
+}, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
