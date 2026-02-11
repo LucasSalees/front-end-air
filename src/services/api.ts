@@ -5,7 +5,7 @@ import axios from 'axios'
 }); */}
 
 const api = axios.create({
-    baseURL: 'https://project-air-conditioning.onrender.com' 
+    baseURL: 'https://project-air-conditioning.onrender.com' // Removi o /api daqui
 });
 
 // Adiciona o token em todas as chamadas automaticamente
