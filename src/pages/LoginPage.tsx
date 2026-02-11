@@ -9,27 +9,34 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-useEffect(() => {
-  let mounted = true;
-
-  const wakeUpServer = async () => {
-    try {
-      // Tenta o ping
-      await api.get('/login/health');
-      if (mounted) setLoading(false);
-    } catch (err) {
-      console.log("Servidor ainda em boot... tentando novamente em 3s");
-      // Se falhar, aguarda 3 segundos e tenta de novo automaticamente
-      if (mounted) {
-        setTimeout(wakeUpServer, 3000);
-      }
+  useEffect(() => {
+    // 1. A MÁGICA: Verifica se já existe um token antes de qualquer coisa
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Se tiver token, manda direto pro Dashboard e cancela o resto
+      navigate('/dashboard');
+      return; 
     }
-  };
 
-  wakeUpServer();
+    // 2. Se não tiver token, segue a vida e tenta acordar o servidor
+    let mounted = true;
 
-  return () => { mounted = false; }; // Cleanup para evitar leak de memória
-}, []);
+    const wakeUpServer = async () => {
+      try {
+        await api.get('/login/health');
+        if (mounted) setLoading(false);
+      } catch (err) {
+        console.log("Servidor ainda em boot... tentando novamente em 3s");
+        if (mounted) {
+          setTimeout(wakeUpServer, 3000);
+        }
+      }
+    };
+
+    wakeUpServer();
+
+    return () => { mounted = false; }; 
+  }, [navigate]); // Adicionamos 'navigate' nas dependências
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +55,7 @@ useEffect(() => {
     }
   };
 
+  // Se estiver carregando, mostra a tela de boot
   if (loading) {
     return (
       <div className="card-tech-login rounded-3xl p-12 shadow-2xl">
@@ -66,6 +74,7 @@ useEffect(() => {
     );
   }
 
+  // Se não estiver carregando (e não tiver sido redirecionado), mostra o formulário
   return (
     <div className="card-tech-login rounded-3xl p-12 shadow-2xl">
       <div className="w-20 h-20 bg-yellow-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-yellow-500/20">
