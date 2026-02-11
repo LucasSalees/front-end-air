@@ -47,10 +47,16 @@ export default function SystemLayout() {
                 md:translate-x-0 md:static md:shadow-none
             `}>
                 <div className="flex items-center justify-between mb-10 px-2">
+
                     <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-yellow-500 rounded-xl flex items-center justify-center text-black font-bold">C</div>
+                        <img 
+                        src="/img/class.jpeg" 
+                        alt="Logo Class Ar" 
+                        className="w-10 h-10 rounded-lg object-cover border border-white/10"
+                        />
                         <span className="text-xl font-bold text-white tracking-tighter">CLASS <span className="text-yellow-500">AR</span></span>
                     </div>
+
                     <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-white">
                         <X size={24} />
                     </button>

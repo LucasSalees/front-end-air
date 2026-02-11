@@ -12,13 +12,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">
           
           {/* LOGO */}
-          <div className="flex items-center gap-2">
-            <img 
+          <div className="flex items-center gap-3">
+              <img 
               src="/img/class.jpeg" 
               alt="Logo Class Ar" 
               className="w-10 h-10 rounded-lg object-cover border border-white/10"
-            />
-            <span className="text-xl font-bold tracking-tight text-white">Class Ar</span>
+              />
+              <span className="text-xl font-bold text-white tracking-tighter">CLASS <span className="text-yellow-500">AR</span></span>
           </div>
 
           {/* BOTÃO HAMBÚRGUER */}
