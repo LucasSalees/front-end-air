@@ -47,10 +47,7 @@ export default function ServerGuard() {
                         <p className="text-slate-500 mt-2 text-sm font-light tracking-widest uppercase">
                             Conectando ao Render...
                         </p>
-                        <div className="mt-6 w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
-                            <div className="bg-yellow-500 h-full w-1/3 animate-[loading_1s_ease-in-out_infinite]" style={{ width: '30%' }}></div>
-                        </div>
-                        <p className="text-[10px] text-slate-600 mt-3 font-mono">Aguarde, isso pode levar até 1 minuto.</p>
+                        <p className="text-[10px] text-slate-600 mt-3 font-mono">Aguarde alguns instantes.</p>
                     </div>
                 </div>
             </div>
